@@ -1,0 +1,28 @@
+{
+  "name": "coffee-game",
+  "version": "1.0.0",
+  "description": "explorables",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JiayangZZZ/coffee-game.git"
+  },
+  "keywords": [
+    "game"
+  ],
+  "author": "Jiayang Zhang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JiayangZZZ/coffee-game/issues"
+  },
+  "homepage": "https://github.com/JiayangZZZ/coffee-game#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  },
+  "devDependencies": {
+    "node-dev": "^3.1.3"
+  }
+}
