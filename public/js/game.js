@@ -1,5 +1,5 @@
 
-var renderer = PIXI.autoDetectRenderer(800, 600, {
+var renderer = PIXI.autoDetectRenderer(600, 500, {
 	antialias: false,
 	transparent: true,
 	resolution: 1
@@ -10,15 +10,18 @@ document.getElementById('display').appendChild(renderer.view);
 //varables
 var caffeine = 0;
 var metaRate = 9;
+var energy = 120;
 
 //PIXI containers
 var stage = new PIXI.Container();
-var controller = new PIXI.Container();
 
-
-
+//loader
 PIXI.loader
 	.add('dying', '/images/1.png')
+	.add('angry', '/images/2.png')
+	.add('dancing', '/images/3.png')
+	.add('good', '/images/4.png')
+	.add('zombie', '/images/5.png')
 	.add('shot', '/images/shot.png')
 	.add('water', '/images/water.png')
 	.load(setup);
@@ -28,12 +31,11 @@ var hero,
 	buttonWater;
 
 function setup() {
-	controller.interactive = true;
-	// hero = new PIXI.Sprite(
-	// 	PIXI.loader.resources['dying'].texture
-	// );
+	stage.interactive = true;
 
-	// hero.scale.set(0.3, 0.3);
+	hero = new PIXI.Sprite(
+		PIXI.loader.resources['good'].texture
+	);
 
 	buttonShot = new PIXI.Sprite(
 		PIXI.loader.resources['shot'].texture
@@ -42,14 +44,19 @@ function setup() {
 		PIXI.loader.resources['water'].texture
 	);
 
+	hero.x = 200;
+	hero.scale.set(0.55, 0.55);
+
 	buttonShot.scale.set(0.4, 0.4);
 	// buttonShot.anchor.set(0.5, 0.5);
-	buttonWater.scale.set(0.4, 0.4);
+	buttonWater.scale.set(0.38, 0.38);
 	// buttonWater.anchor.set(0.5, 0.5);
 	buttonWater.y = renderer.height - buttonWater.height;
+	console.log(hero.width)
 
 	buttonShot.click = function() {
 		caffeine += 77;
+		energy = caffeine;
 		document.getElementById('caffeine').innerHTML = caffeine;
 	}
 	buttonShot.mouseover = function() {
@@ -78,23 +85,22 @@ function setup() {
 	buttonShot.buttonMode = true;
 	buttonWater.interactive = true;
 	buttonWater.buttonMode = true;
-	controller.addChild(buttonShot);
-	controller.addChild(buttonWater);
+	stage.addChild(buttonShot);
+	stage.addChild(buttonWater);
+	stage.addChild(hero);
 
-	// stage.addChild(hero);
 	animationLoop();
 }
 
+//animation
 function animationLoop() {
 	requestAnimationFrame(animationLoop);
 
-	
-	
 
 	renderer.render(stage);
-	renderer.render(controller);
 }
 
+//set timer
 function setTime() {
 	var timer = document.getElementById('timer').innerHTML;
 	var ampm = document.getElementById('ampm').innerHTML;
@@ -105,7 +111,11 @@ function setTime() {
 	caffeine = parseInt(caffeine);
 	rate = parseInt(rate);
 
+	//varable changes
 	h++;
+	energy -= 10;
+
+	//DOM changes
 	document.getElementById('timer').innerHTML = "" + h + "";
 	if(caffeine >= rate) {
 		document.getElementById('caffeine').innerHTML = "" + (caffeine-rate) + "";
@@ -113,7 +123,6 @@ function setTime() {
 	else {
 		document.getElementById('caffeine').innerHTML = 0;
 	}
-	
 	if(h > 12) {
 		document.getElementById('timer').innerHTML = 1;
 		if(ampm == 'AM') {
@@ -122,6 +131,22 @@ function setTime() {
 		else {
 			document.getElementById('ampm').innerHTML = "AM";
 		}
+	}
+
+	if(energy <= 0) {
+		hero.texture = PIXI.loader.resources['dying'].texture;
+	}
+	else if(energy < 90) {
+		hero.texture = PIXI.loader.resources['zombie'].texture;
+	}
+	else if(energy < 200) {
+		hero.texture = PIXI.loader.resources['good'].texture
+	}
+	else if(energy < 300) {
+		hero.texture = PIXI.loader.resources['dancing'].texture
+	}
+	else {
+		hero.texture = PIXI.loader.resources['angry'].texture
 	}
 }
 
