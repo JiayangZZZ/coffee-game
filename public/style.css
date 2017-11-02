@@ -9,8 +9,13 @@ h1 {
 	margin: 10px;
 }
 
+h2 {
+	margin: 5px;
+}
+
 p {
 	margin: 5px;
+	display: inline-block;
 }
 
 #display {
@@ -22,5 +27,10 @@ p {
 }
 
 #ampm {
+	display: inline-block;
+}
+
+.item {
+	width: 300px;
 	display: inline-block;
 }
