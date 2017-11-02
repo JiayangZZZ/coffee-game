@@ -1,0 +1,26 @@
+body {
+	height: 100vh;
+	font-family: 'Amatic SC', cursive;
+	font-size: 30px;
+}
+
+h1 {
+	font-size: 40px;
+	margin: 10px;
+}
+
+p {
+	margin: 5px;
+}
+
+#display {
+    border: 1px solid black;
+}
+
+#timer {
+	display: inline-block;
+}
+
+#ampm {
+	display: inline-block;
+}
